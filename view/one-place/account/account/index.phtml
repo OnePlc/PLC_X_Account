@@ -1,20 +1,101 @@
 <?php
+use Application\Controller\CoreController;
+
 if(is_object($oLicResponse)) {
     if($oLicResponse->state == 'success') { ?>
-        <h2>Welcome <?=$oInstance->label?></h2>
+        <div class="row">
+            <div class="tab tab-vertical">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link show" data-toggle="tab" href="#v-pills-home" role="tab" aria-selected="true">
+                            <?=$this->translate('Home')?>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link show" data-toggle="tab" href="#v-pills-profile" role="tab" aria-selected="false">
+                            <?=$this->translate('Licenses')?>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link show" data-toggle="tab" href="#v-pills-messages" role="tab" aria-selected="false">
+                            <?=$this->translate('Profile')?>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link show" data-toggle="tab" href="#v-pills-settings" role="tab" aria-selected="false">
+                            <?=$this->translate('Settings')?>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content px-4" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                        <h2><?=$this->translate('Welcome')?> <?=$oInstance->label?></h2>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                        <div class="alert alert-info py-2 px-2">
+                            <i class="fas fa-info-circle mr-2 mt-1"></i>
+                            <?=$this->translate('You currently have')?> <?=count($oLicResponse->items)?> <?=$this->translate('active licenses')?>
+                        </div>
+                        <ul class="list-group">
+                            <?php
+                            foreach($oLicResponse->items as $oLic) {
+                                ?>
+                                <li class="list-group-item">
+                                    <?=(isset($oLic->oArticle)) ? $oLic->oArticle->label : ''?> - <?=$oLic->label?> - <?=$oLic->date_start?> - <?=$oLic->date_end?> - <?=$oLic->license_key?>
+                                </li>
+                                <?php
+                            }
+                            ?>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
 
-        Your active licenses
-        <ul class="list-group">
-        <?php
-        foreach($oLicResponse->items as $oLic) {
-        ?>
-            <li class="list-group-item">
-                <?=(isset($oLic->oArticle)) ? $oLic->oArticle->label : ''?> - <?=$oLic->label?> - <?=$oLic->date_start?> - <?=$oLic->date_end?> - <?=$oLic->license_key?>
-            </li>
-        <?php
-        }
-        ?>
-        </ul>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                        <form action="<?=$this->url('account',['action'=>'settings'])?>" method="POST" enctype="multipart/form-data">
+                            <!-- Logo -->
+                            <div class="form-row">
+                                <label for="input01" class="col-md-3 mb-3">
+                                    <?=$this->translate('Logo')?>
+                                </label>
+                                <div class="col-md-9 mb-3">
+                                    <img src="/img/logo.png" style="max-height:120px; max-width:240px;" />
+                                    <input type="file" name="accountlogo" />
+                                </div>
+                            </div>
+                            <!-- Logo -->
+
+                            <!-- Favicon -->
+                            <div class="form-row">
+                                <label for="input01" class="col-md-3 mb-3">
+                                    <?=$this->translate('Favicon')?>
+                                </label>
+                                <div class="col-md-9 mb-3">
+                                    <img src="/img/favicon.ico" style="max-height:16px; max-width:16px;" /><br/>
+                                    <input type="file" name="accountfavicon" />
+                                </div>
+                            </div>
+                            <!-- Favicon -->
+
+                            <!-- App Title -->
+                            <div class="form-row">
+                                <label for="input01" class="col-md-3 mb-3">
+                                    <?=$this->translate('App Title')?>
+                                </label>
+                                <div class="col-md-9 mb-3">
+                                    <input type="text" name="plc_account_title" class="form-control" value="<?=CoreController::$aGlobalSettings['app-title']?>"/>
+                                </div>
+                            </div>
+                            <!-- App Title -->
+
+                            <div class="form-row">
+                                <button type="submit" class="btn btn-primary">Save Settings</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     <?php
     } else { ?>
         <div class="alert alert-danger">Error connecting to your onePlace Account: <?=$oResponse->message?></div>

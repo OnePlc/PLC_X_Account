@@ -213,4 +213,25 @@ class AccountController extends CoreEntityController {
          */
         return $this->generateViewView('account');
     }
+
+    public function settingsAction() {
+        # Set Layout based on users theme
+        $this->setThemeBasedLayout('account');
+
+        if(isset($_FILES['accountlogo'])) {
+            move_uploaded_file($_FILES['accountlogo']['tmp_name'],$_SERVER['DOCUMENT_ROOT'].'/img/logo.png');
+        }
+
+        if(isset($_FILES['accountfavicon'])) {
+            move_uploaded_file($_FILES['accountfavicon']['tmp_name'],$_SERVER['DOCUMENT_ROOT'].'/img/favicon.ico');
+        }
+
+        if(isset($_REQUEST['plc_account_title'])) {
+            CoreEntityController::$aCoreTables['settings']->update([
+                'settings_value'=>$_REQUEST['plc_account_title']
+            ],'settings_key = \'app-title\'');
+        }
+
+        return false;
+    }
 }
