@@ -1,148 +1,156 @@
-<?php
-use Application\Controller\CoreController;
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title"><?=$this->translate('My Account')?></h1>
+    </div>
+    <div class="card-body">
+        <?php
+        use Application\Controller\CoreController;
 
-if(is_object($oLicResponse)) {
-    if($oLicResponse->state == 'success') { ?>
-        <div class="row">
-            <div class="tab tab-vertical">
-                <ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link show" data-toggle="tab" href="#v-pills-home" role="tab" aria-selected="true">
-                            <?=$this->translate('Home')?>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link show" data-toggle="tab" href="#v-pills-profile" role="tab" aria-selected="false">
-                            <?=$this->translate('Licenses')?>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link show" data-toggle="tab" href="#v-pills-messages" role="tab" aria-selected="false">
-                            <?=$this->translate('Profile')?>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link show" data-toggle="tab" href="#v-pills-settings" role="tab" aria-selected="false">
-                            <?=$this->translate('Settings')?>
-                        </a>
-                    </li>
-                </ul>
-                <div class="tab-content px-4" id="v-pills-tabContent">
-                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                        <h2><?=$this->translate('Welcome')?> <?=$oInstance->label?></h2>
-                    </div>
-                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                        <div class="alert alert-info py-2 px-2">
-                            <i class="fas fa-info-circle mr-2 mt-1"></i>
-                            <?=$this->translate('You currently have')?> <?=count($oLicResponse->items)?> <?=$this->translate('active licenses')?>
-                        </div>
-                        <ul class="list-group">
-                            <?php
-                            foreach($oLicResponse->items as $oLic) {
-                                ?>
-                                <li class="list-group-item">
-                                    <?=(isset($oLic->oArticle)) ? $oLic->oArticle->label : ''?> - <?=$oLic->label?> - <?=$oLic->date_start?> - <?=$oLic->date_end?> - <?=$oLic->license_key?>
-                                </li>
-                                <?php
-                            }
-                            ?>
+        if(is_object($oLicResponse)) {
+            if($oLicResponse->state == 'success') { ?>
+                <div class="row">
+                    <div class="tab tab-vertical">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link show" data-toggle="tab" href="#v-pills-home" role="tab" aria-selected="true">
+                                    <?=$this->translate('Home')?>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link show" data-toggle="tab" href="#v-pills-profile" role="tab" aria-selected="false">
+                                    <?=$this->translate('Licenses')?>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link show" data-toggle="tab" href="#v-pills-messages" role="tab" aria-selected="false">
+                                    <?=$this->translate('Profile')?>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link show" data-toggle="tab" href="#v-pills-settings" role="tab" aria-selected="false">
+                                    <?=$this->translate('Settings')?>
+                                </a>
+                            </li>
                         </ul>
-                    </div>
-                    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-
-                    </div>
-                    <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-                        <form action="<?=$this->url('account',['action'=>'settings'])?>" method="POST" enctype="multipart/form-data">
-                            <!-- Logo -->
-                            <div class="form-row">
-                                <label for="input01" class="col-md-3 mb-3">
-                                    <?=$this->translate('Logo')?>
-                                </label>
-                                <div class="col-md-9 mb-3">
-                                    <img src="/img/logo.png" style="max-height:120px; max-width:240px;" />
-                                    <input type="file" name="accountlogo" />
+                        <div class="tab-content px-4" id="v-pills-tabContent">
+                            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                <h2><?=$this->translate('Welcome')?> <?=$oInstance->label?></h2>
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                                <div class="alert alert-info py-2 px-2">
+                                    <i class="fas fa-info-circle mr-2 mt-1"></i>
+                                    <?=$this->translate('You currently have')?> <?=count($oLicResponse->items)?> <?=$this->translate('active licenses')?>
                                 </div>
+                                <ul class="list-group">
+                                    <?php
+                                    foreach($oLicResponse->items as $oLic) {
+                                        ?>
+                                        <li class="list-group-item">
+                                            <?=(isset($oLic->oArticle)) ? $oLic->oArticle->label : ''?> - <?=$oLic->label?> - <?=$oLic->date_start?> - <?=$oLic->date_end?> - <?=$oLic->license_key?>
+                                        </li>
+                                        <?php
+                                    }
+                                    ?>
+                                </ul>
                             </div>
-                            <!-- Logo -->
+                            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
 
-                            <!-- Favicon -->
-                            <div class="form-row">
-                                <label for="input01" class="col-md-3 mb-3">
-                                    <?=$this->translate('Favicon')?>
-                                </label>
-                                <div class="col-md-9 mb-3">
-                                    <img src="/img/favicon.ico" style="max-height:16px; max-width:16px;" /><br/>
-                                    <input type="file" name="accountfavicon" />
-                                </div>
                             </div>
-                            <!-- Favicon -->
+                            <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                                <form action="<?=$this->url('account',['action'=>'settings'])?>" method="POST" enctype="multipart/form-data">
+                                    <!-- Logo -->
+                                    <div class="form-row">
+                                        <label for="input01" class="col-md-3 mb-3">
+                                            <?=$this->translate('Logo')?>
+                                        </label>
+                                        <div class="col-md-9 mb-3">
+                                            <img src="/img/logo.png" style="max-height:120px; max-width:240px;" />
+                                            <input type="file" name="accountlogo" />
+                                        </div>
+                                    </div>
+                                    <!-- Logo -->
 
-                            <!-- App Title -->
-                            <div class="form-row">
-                                <label for="input01" class="col-md-3 mb-3">
-                                    <?=$this->translate('App Title')?>
-                                </label>
-                                <div class="col-md-9 mb-3">
-                                    <input type="text" name="plc_account_title" class="form-control" value="<?=CoreController::$aGlobalSettings['app-title']?>"/>
-                                </div>
-                            </div>
-                            <!-- App Title -->
+                                    <!-- Favicon -->
+                                    <div class="form-row">
+                                        <label for="input01" class="col-md-3 mb-3">
+                                            <?=$this->translate('Favicon')?>
+                                        </label>
+                                        <div class="col-md-9 mb-3">
+                                            <img src="/img/favicon.ico" style="max-height:16px; max-width:16px;" /><br/>
+                                            <input type="file" name="accountfavicon" />
+                                        </div>
+                                    </div>
+                                    <!-- Favicon -->
 
-                            <div class="form-row">
-                                <button type="submit" class="btn btn-primary">Save Settings</button>
+                                    <!-- App Title -->
+                                    <div class="form-row">
+                                        <label for="input01" class="col-md-3 mb-3">
+                                            <?=$this->translate('App Title')?>
+                                        </label>
+                                        <div class="col-md-9 mb-3">
+                                            <input type="text" name="plc_account_title" class="form-control" value="<?=CoreController::$aGlobalSettings['app-title']?>"/>
+                                        </div>
+                                    </div>
+                                    <!-- App Title -->
+
+                                    <div class="form-row">
+                                        <button type="submit" class="btn btn-primary">Save Settings</button>
+                                    </div>
+                                </form>
                             </div>
-                        </form>
+                        </div>
                     </div>
+                </div>
+            <?php
+            } else { ?>
+                <div class="alert alert-danger">Error connecting to your onePlace Account: <?=$oResponse->message?></div>
+            <?php
+            }
+        } else { ?>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-info py-2 px-2">You are currently not connected to onePlace Services - please enter your Credentials</div>
                 </div>
             </div>
-        </div>
-    <?php
-    } else { ?>
-        <div class="alert alert-danger">Error connecting to your onePlace Account: <?=$oResponse->message?></div>
-    <?php
-    }
-} else { ?>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="alert alert-info py-2 px-2">You are currently not connected to onePlace Services - please enter your Credentials</div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <form action="" method="POST">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">Enter your onep.lc API Credentials</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    <form action="" method="POST">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Enter your onep.lc API Credentials</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
 
-                            <label for="plc_api_server">API Server</label>
-                            <input type="text" name="plc_api_server" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label for="plc_api_store">Store Server</label>
-                            <input type="text" name="plc_api_store" class="form-control" />
-                        </div>
+                                    <label for="plc_api_server">API Server</label>
+                                    <input type="text" name="plc_api_server" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="plc_api_store">Store Server</label>
+                                    <input type="text" name="plc_api_store" class="form-control" />
+                                </div>
 
-                        <div class="form-group">
-                            <label for="plc_api_key">API Key</label>
-                            <input type="text" name="plc_api_key" class="form-control" />
-                        </div>
+                                <div class="form-group">
+                                    <label for="plc_api_key">API Key</label>
+                                    <input type="text" name="plc_api_key" class="form-control" />
+                                </div>
 
-                        <div class="form-group">
-                            <label for="plc_api_token">API Secret</label>
-                            <input type="text" name="plc_api_token" class="form-control" />
+                                <div class="form-group">
+                                    <label for="plc_api_token">API Secret</label>
+                                    <input type="text" name="plc_api_token" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-primary" type="submit">
+                                    Connect to onep.lc
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn btn-primary" type="submit">
-                            Connect to onep.lc
-                        </button>
-                    </div>
+                    </form>
                 </div>
-            </form>
-        </div>
+            </div>
+        <?php
+        }
+        ?>
     </div>
-<?php
-}
+</div>

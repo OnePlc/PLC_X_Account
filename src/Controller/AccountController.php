@@ -62,6 +62,10 @@ class AccountController extends CoreEntityController {
         # Set Layout based on users theme
         $this->setThemeBasedLayout('account');
 
+        $this->layout()->aNavLinks = [
+            (object)['label'=>'My Account'],
+        ];
+
         # Check license
         if(!$this->checkLicense('user')) {
             $this->flashMessenger()->addErrorMessage('You have no active license for oneplace');
