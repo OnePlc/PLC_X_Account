@@ -1,2 +1,67 @@
-<?= $this->partial('partial/indexheader',['sTitle'=>'Accounts']) ?>
-<?= $this->partial('partial/indextable', ['sTableName'=>$sTableName,'aItems'=>$aItems,'sRoute'=>(isset($sRoute)) ? $sRoute : explode('-',$sTableName)[0]]); ?>
+<?php
+if(is_object($oLicResponse)) {
+    if($oLicResponse->state == 'success') { ?>
+        <h2>Welcome <?=$oInstance->label?></h2>
+
+        Your active licenses
+        <ul class="list-group">
+        <?php
+        foreach($oLicResponse->items as $oLic) {
+        ?>
+            <li class="list-group-item">
+                <?=(isset($oLic->oArticle)) ? $oLic->oArticle->label : ''?> - <?=$oLic->label?> - <?=$oLic->date_start?> - <?=$oLic->date_end?> - <?=$oLic->license_key?>
+            </li>
+        <?php
+        }
+        ?>
+        </ul>
+    <?php
+    } else { ?>
+        <div class="alert alert-danger">Error connecting to your onePlace Account: <?=$oResponse->message?></div>
+    <?php
+    }
+} else { ?>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-info py-2 px-2">You are currently not connected to onePlace Services - please enter your Credentials</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <form action="" method="POST">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Enter your onep.lc API Credentials</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+
+                            <label for="plc_api_server">API Server</label>
+                            <input type="text" name="plc_api_server" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="plc_api_store">Store Server</label>
+                            <input type="text" name="plc_api_store" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="plc_api_key">API Key</label>
+                            <input type="text" name="plc_api_key" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="plc_api_token">API Secret</label>
+                            <input type="text" name="plc_api_token" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit">
+                            Connect to onep.lc
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+<?php
+}

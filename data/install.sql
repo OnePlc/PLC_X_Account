@@ -22,7 +22,7 @@ ALTER TABLE `account`
 INSERT INTO `permission` (`permission_key`, `module`, `label`, `nav_label`, `nav_href`, `show_in_menu`) VALUES
 ('add', 'OnePlace\\Account\\Controller\\AccountController', 'Add', '', '', 0),
 ('edit', 'OnePlace\\Account\\Controller\\AccountController', 'Edit', '', '', 0),
-('index', 'OnePlace\\Account\\Controller\\AccountController', 'Index', 'Accounts', '/account', 1),
+('index', 'OnePlace\\Account\\Controller\\AccountController', 'Index', 'My Account', '/account', 1),
 ('list', 'OnePlace\\Account\\Controller\\ApiController', 'List', '', '', 1),
 ('view', 'OnePlace\\Account\\Controller\\AccountController', 'View', '', '', 0),
 ('dump', 'OnePlace\\Account\\Controller\\ExportController', 'Excel Dump', '', '', 0),

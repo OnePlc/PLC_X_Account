@@ -3,6 +3,7 @@
     "description": "onePlace Account Module",
     "type": "oneplace-module",
     "license": "BSD-3-Clause",
+    "version": "1.0.1",
     "keywords": [
         "laminas",
         "mvc",
@@ -46,7 +47,7 @@
     },
     "extra": {
         "zf": {
-            "module": "OnePlace\\Article"
+            "module": "OnePlace\\Account"
         }
     }
 }
