@@ -71,4 +71,9 @@ INSERT INTO `core_widget` (`Widget_ID`, `widget_name`, `label`, `permission`) VA
 (NULL, 'account_dailystats', 'Account - Daily Stats', 'index-Account\\Controller\\AccountController'),
 (NULL, 'account_taginfo', 'Account - Tag Info', 'index-Account\\Controller\\AccountController');
 
+--
+-- icon
+--
+INSERT INTO `settings` (`settings_key`, `settings_value`) VALUES ('account-icon', 'fas fa-user-circle');
+
 COMMIT;
