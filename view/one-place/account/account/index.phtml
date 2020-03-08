@@ -1,11 +1,15 @@
+<?php
+use Application\Controller\CoreController;
+
+$sIcon = (array_key_exists('account-icon',CoreController::$aGlobalSettings))
+    ?  CoreController::$aGlobalSettings['account-icon'] : '';
+?>
 <div class="card">
     <div class="card-header">
-        <h1 class="card-title"><?=$this->translate('My Account')?></h1>
+        <h1 class="card-title"><i class="<?=$sIcon?>"></i> <?=$this->translate('My Account')?></h1>
     </div>
     <div class="card-body">
         <?php
-        use Application\Controller\CoreController;
-
         if(is_object($oLicResponse)) {
             if($oLicResponse->state == 'success') { ?>
                 <div class="row">
